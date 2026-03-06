@@ -18,4 +18,17 @@ public class User {
     @Column(nullable = false)
     private String name;
 
+    public String getName() {
+        return name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public User() {}
+
+    public User(String name) {
+        this.name = name;
+    }
 }
