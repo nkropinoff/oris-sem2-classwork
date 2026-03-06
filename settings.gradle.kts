@@ -1,0 +1,1 @@
+rootProject.name = "oris-sem2-classwork"
