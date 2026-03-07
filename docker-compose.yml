@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:17-alpine
-    container_name: oris-hw1-db
+    container_name: oris-hw2-db
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres

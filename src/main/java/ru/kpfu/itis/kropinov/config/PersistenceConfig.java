@@ -8,8 +8,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor;
 import org.springframework.orm.jpa.vendor.Database;
@@ -23,6 +25,7 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:persistence.properties")
 @EnableTransactionManagement
+@EnableJpaRepositories("ru.kpfu.itis.kropinov.repository")
 public class PersistenceConfig implements EnvironmentAware {
 
     private Environment environment;
@@ -52,13 +55,20 @@ public class PersistenceConfig implements EnvironmentAware {
     }
 
     @Bean
-    public EntityManagerFactory entityManagerFactory(DataSource dataSource, HibernateJpaVendorAdapter vendorAdapter) {
+    public EntityManagerFactory entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactory.setJpaVendorAdapter(vendorAdapter);
+        entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter());
         entityManagerFactory.setPackagesToScan("ru.kpfu.itis.kropinov.model");
-        entityManagerFactory.setDataSource(dataSource);
+        entityManagerFactory.setDataSource(dataSource());
         entityManagerFactory.afterPropertiesSet();
         return entityManagerFactory.getObject();
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager() {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory());
+        return transactionManager;
     }
 
     @Bean
@@ -72,9 +82,9 @@ public class PersistenceConfig implements EnvironmentAware {
     }
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
+    public LocalSessionFactoryBean localSessionFactoryBean() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource);
+        sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("ru.kpfu.itis.kropinov.model");
         Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
@@ -83,7 +93,9 @@ public class PersistenceConfig implements EnvironmentAware {
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager(LocalSessionFactoryBean localSessionFactoryBean) {
-        return new HibernateTransactionManager(localSessionFactoryBean.getObject());
+    public PlatformTransactionManager hibernateTransactionManager() {
+        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+        transactionManager.setSessionFactory(localSessionFactoryBean().getObject());
+        return transactionManager;
     }
 }

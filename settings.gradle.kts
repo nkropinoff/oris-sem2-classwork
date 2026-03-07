@@ -1,1 +1,1 @@
-rootProject.name = "oris-sem2-hw-1"
+rootProject.name = "oris-sem2-hw2"

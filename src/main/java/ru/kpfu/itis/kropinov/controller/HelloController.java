@@ -1,14 +1,11 @@
 package ru.kpfu.itis.kropinov.controller;
 
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.kpfu.itis.kropinov.model.User;
 import ru.kpfu.itis.kropinov.repository.UserRepository;
+import ru.kpfu.itis.kropinov.repository.UserRepositoryHibernate;
 import ru.kpfu.itis.kropinov.service.HelloService;
-
-import java.util.List;
 
 @RestController
 public class HelloController {

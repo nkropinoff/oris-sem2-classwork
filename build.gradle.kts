@@ -10,6 +10,7 @@ version = "1.0-SNAPSHOT"
 val springVersion: String by project
 val jakartaVersion: String by project
 val hibernateVersion: String by project
+val springDataVersion: String by project
 val postgresVersion: String by project
 val freemarkerVersion: String by project
 val hikariVersion: String by project
@@ -27,6 +28,7 @@ dependencies {
     implementation("org.hibernate.orm:hibernate-core:$hibernateVersion")
     implementation("org.postgresql:postgresql:$postgresVersion")
     implementation("org.freemarker:freemarker:$freemarkerVersion")
+    implementation("org.springframework.data:spring-data-jpa:$springDataVersion")
     implementation("com.zaxxer:HikariCP:$hikariVersion")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.18.3")
 }
