@@ -76,26 +76,26 @@ public class PersistenceConfig implements EnvironmentAware {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
-    @Bean
-    public PersistenceAnnotationBeanPostProcessor persistenceAnnotationBeanPostProcessor() {
-        return new PersistenceAnnotationBeanPostProcessor();
-    }
+//    @Bean
+//    public PersistenceAnnotationBeanPostProcessor persistenceAnnotationBeanPostProcessor() {
+//        return new PersistenceAnnotationBeanPostProcessor();
+//    }
+//
+//    @Bean
+//    public LocalSessionFactoryBean localSessionFactoryBean() {
+//        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+//        sessionFactory.setDataSource(dataSource());
+//        sessionFactory.setPackagesToScan("ru.kpfu.itis.kropinov.model");
+//        Properties hibernateProperties = new Properties();
+//        hibernateProperties.setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
+//        sessionFactory.setHibernateProperties(hibernateProperties);
+//        return sessionFactory;
+//    }
 
-    @Bean
-    public LocalSessionFactoryBean localSessionFactoryBean() {
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("ru.kpfu.itis.kropinov.model");
-        Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
-        sessionFactory.setHibernateProperties(hibernateProperties);
-        return sessionFactory;
-    }
-
-    @Bean
-    public PlatformTransactionManager hibernateTransactionManager() {
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(localSessionFactoryBean().getObject());
-        return transactionManager;
-    }
+//    @Bean
+//    public PlatformTransactionManager hibernateTransactionManager() {
+//        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+//        transactionManager.setSessionFactory(localSessionFactoryBean().getObject());
+//        return transactionManager;
+//    }
 }
