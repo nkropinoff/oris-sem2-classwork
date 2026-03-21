@@ -22,6 +22,10 @@ public class CustomUserDetails implements UserDetails {
         return user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList();
     }
 
+    public User getUser() {
+        return user;
+    }
+
     @Override
     public String getPassword() {
         return user.getPassword();
@@ -51,4 +55,9 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public long getId() {
+        return user.getId();
+    }
+
 }

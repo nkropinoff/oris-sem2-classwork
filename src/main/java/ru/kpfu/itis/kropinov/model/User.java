@@ -27,6 +27,9 @@ public class User {
     )
     private List<Role> roles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "author")
+    private List<Note> notes = new ArrayList<>();
+
     public User() {}
 
     public User(Long id, String name) {

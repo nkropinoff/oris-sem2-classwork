@@ -21,6 +21,7 @@ repositories {
 }
 
 dependencies {
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.3")
     implementation("org.springframework:spring-webmvc:$springVersion")
     implementation("org.springframework:spring-jdbc:$springVersion")
     implementation("org.springframework:spring-orm:$springVersion")

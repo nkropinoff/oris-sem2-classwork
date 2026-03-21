@@ -40,14 +40,18 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, UserDetailsService userDetailsService) throws Exception {
-        http.authorizeHttpRequests(ar -> ar
-                        .requestMatchers("/", "/register", "/login").permitAll()
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/admin/**"))
+                .authorizeHttpRequests(ar -> ar
+                        .requestMatchers("/", "/index","/register", "/login").permitAll()
                         .requestMatchers("/hello").permitAll()
-                        .requestMatchers("/admin/**").hasAnyRole("ADMIN")
+                        .requestMatchers("/notes/public").permitAll()
+                        .requestMatchers("/notes/**").hasRole("USER")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
+
         return http.build();
     }
 

@@ -22,9 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println(">>> loadUserByUsername called: " + username);
         Optional<User> user = userRepository.findByUsername(username);
-        System.out.println(">>> user found: " + user.isPresent());
         return user.map(CustomUserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
 
