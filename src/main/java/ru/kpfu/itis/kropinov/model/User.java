@@ -14,10 +14,16 @@ public class User {
     private long id;
 
     @Column(nullable = false,  unique = true)
-    private String username;
+    private String email;
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private String verificationCode;
+
+    @Column(nullable = false)
+    private Boolean verified = false;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -34,7 +40,7 @@ public class User {
 
     public User(Long id, String name) {
         this.id = id;
-        this.username = name;
+        this.email = name;
     }
 
     public long getId() {
@@ -45,12 +51,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -69,7 +75,23 @@ public class User {
         this.roles = roles;
     }
 
-    public User(String username) {
-        this.username = username;
+    public User(String email) {
+        this.email = email;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    public Boolean getVerified() {
+        return verified;
+    }
+
+    public void setVerified(Boolean verified) {
+        this.verified = verified;
     }
 }

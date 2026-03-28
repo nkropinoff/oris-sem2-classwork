@@ -22,15 +22,29 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestParam("username") String username, @RequestParam("password") String password, Model model) {
+    public String register(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
 
         try {
-            userService.register(username, password);
+            userService.register(email, password);
             return "redirect:/login";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
             return "register";
         }
+    }
+
+    @GetMapping("/verification")
+    public String verify(@RequestParam("code") String verificationCode) {
+        System.out.println(">>> verification endpoint hit, code = " + verificationCode);
+        if (userService.verifyUser(verificationCode)) {
+            return "email-verified";
+        }
+        return "verification-error";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 
     // for simply testing

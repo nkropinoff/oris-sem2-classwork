@@ -1,6 +1,5 @@
 package ru.kpfu.itis.kropinov.service;
 
-import jakarta.transaction.TransactionScoped;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kpfu.itis.kropinov.dto.NoteCreateDto;
@@ -13,7 +12,6 @@ import ru.kpfu.itis.kropinov.model.User;
 import ru.kpfu.itis.kropinov.repository.NoteRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class NoteService {
@@ -33,7 +31,7 @@ public class NoteService {
                         n.getContent(),
                         n.getCreatedAt(),
                         n.isPublic(),
-                        n.getAuthor().getUsername()
+                        n.getAuthor().getEmail()
                 ))
                 .toList();
     }

@@ -35,7 +35,7 @@
             <div class="note-card">
                 <h3>${note.title?html}</h3>
                 <div class="note-meta">
-                    ${note.author.username?html} · ${note.createdAt}
+                    ${note.author.email?html} · ${note.createdAt}
                 </div>
                 <div class="note-content">${note.content?html}</div>
             </div>

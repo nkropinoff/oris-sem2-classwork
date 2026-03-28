@@ -8,5 +8,5 @@ public record NoteResponseDto(
         String content,
         Instant createdAt,
         boolean isPublic,
-        String authorUsername
+        String authorEmail
 ) {}

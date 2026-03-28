@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Регистрация</title>
+    <title>Вход</title>
     <style>
         body { font-family: sans-serif; margin: 40px; color: #111; }
         a { color: #111; }
@@ -18,28 +18,28 @@
     </style>
 </head>
 <body>
-    <h2>Регистрация</h2>
+<h2>Вход</h2>
 
-    <#if error??>
-        <div class="error">${error}</div>
-    </#if>
+<#if error??>
+    <div class="error">Неверный email или пароль.</div>
+</#if>
 
-    <form action="/register" method="post">
-        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <div class="form-group">
-            <label>Почта</label>
-            <input type="email" name="email" required/>
-        </div>
-        <div class="form-group">
-            <label>Пароль</label>
-            <input type="password" name="password" required/>
-        </div>
-        <button type="submit">Зарегистрироваться</button>
-    </form>
-
-    <div class="links">
-        <a href="/index">← На главную</a>
-        <a href="/login">Уже есть аккаунт? Войти</a>
+<form action="/login" method="post">
+    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+    <div class="form-group">
+        <label>Почта</label>
+        <input type="email" name="username" required/>
     </div>
+    <div class="form-group">
+        <label>Пароль</label>
+        <input type="password" name="password" required/>
+    </div>
+    <button type="submit">Войти</button>
+</form>
+
+<div class="links">
+    <a href="/index">← На главную</a>
+    <a href="/register">Нет аккаунта? Зарегистрироваться</a>
+</div>
 </body>
 </html>
