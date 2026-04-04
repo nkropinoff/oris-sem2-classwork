@@ -1,8 +1,18 @@
+import java.util.*
+
+buildscript {
+    repositories { mavenCentral() }
+    dependencies {
+        classpath("org.liquibase:liquibase-core:4.33.0")
+    }
+}
+
 plugins {
     id("java")
 //    id("application")
     id("org.springframework.boot") version "3.4.4"
     id("io.spring.dependency-management") version "1.1.7"
+    id("org.liquibase.gradle") version "3.1.0"
 }
 
 group = "ru.kpfu.itis.kropinov"
@@ -31,6 +41,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.security:spring-security-taglibs:${springSecurityVersion}")
     implementation("org.postgresql:postgresql:$postgresVersion")
+    implementation("org.liquibase:liquibase-core")
+    liquibaseRuntime("org.liquibase:liquibase-core:4.33.0")
+    liquibaseRuntime("org.postgresql:postgresql:$postgresVersion")
+    liquibaseRuntime("info.picocli:picocli:4.7.5")
 }
 
 //application {
@@ -39,4 +53,19 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+val props = Properties()
+file("src/main/resources/db/liquibase.properties").inputStream().use { props.load(it) }
+
+liquibase {
+    activities.register("main") {
+        this.arguments = mapOf(
+            "changelogFile" to props.getProperty("output-changelog-file"),
+            "url"           to props.getProperty("url"),
+            "username"      to props.getProperty("username"),
+            "password"      to props.getProperty("password"),
+            "driver"        to props.getProperty("driver-class-name")
+        )
+    }
 }
