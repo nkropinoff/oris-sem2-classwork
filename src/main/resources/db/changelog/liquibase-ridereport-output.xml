@@ -1,0 +1,261 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="kropinoff (generated)" id="1775290085186-1">
+        <createTable tableName="cities">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="cities_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-2">
+        <createTable tableName="company_documents">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="company_documents_pkey"/>
+            </column>
+            <column name="company_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="url" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="public_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="original_filename" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mime_type" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="size_bytes" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-3">
+        <createTable tableName="feedback_categories">
+            <column autoIncrement="true" name="id" type="SMALLINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="feedback_categories_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-4">
+        <createTable tableName="review_photo">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="review_photo_pkey"/>
+            </column>
+            <column name="review_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="storage_url" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="public_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="original_filename" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mime_type" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="size_bytes" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-5">
+        <createTable tableName="reviews">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="reviews_pkey"/>
+            </column>
+            <column name="owner_id" type="INTEGER"/>
+            <column name="route_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vehicle_number" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ride_time" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="VARCHAR(2000)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-6">
+        <createTable tableName="route_vehicles">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="route_vehicles_pkey"/>
+            </column>
+            <column name="route_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vehicle_number" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-7">
+        <createTable tableName="routes">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="routes_pkey"/>
+            </column>
+            <column name="company_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="city_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="transport_mode_id" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-8">
+        <createTable tableName="transport_modes">
+            <column autoIncrement="true" name="id" type="SMALLINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="transport_modes_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-9">
+        <addUniqueConstraint columnNames="name" constraintName="cities_name_key" tableName="cities"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-10">
+        <createTable tableName="companies">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="companies_pkey"/>
+            </column>
+            <column name="user_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="inn" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="PENDING" name="status" type="VERIFY_STATUS">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-11">
+        <addUniqueConstraint columnNames="name" constraintName="feedback_categories_name_key" tableName="feedback_categories"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-12">
+        <createTable tableName="feedback_tags">
+            <column autoIncrement="true" name="id" type="SMALLINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="feedback_tags_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="TAG_TYPE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-13">
+        <addUniqueConstraint columnNames="route_id, vehicle_number" constraintName="route_vehicles_route_id_vehicle_number_key" tableName="route_vehicles"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-14">
+        <addUniqueConstraint columnNames="vehicle_number" constraintName="route_vehicles_vehicle_number_key" tableName="route_vehicles"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-15">
+        <addUniqueConstraint columnNames="city_id, transport_mode_id, number" constraintName="routes_city_id_transport_mode_id_number_key" tableName="routes"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-16">
+        <addUniqueConstraint columnNames="name" constraintName="transport_modes_name_key" tableName="transport_modes"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-17">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" startWith="2" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_pkey"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password_hash" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="USER_ROLE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-18">
+        <addUniqueConstraint columnNames="user_id" constraintName="companies_user_id_key" tableName="companies"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-19">
+        <addUniqueConstraint columnNames="name" constraintName="feedback_tags_name_key" tableName="feedback_tags"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-20">
+        <addUniqueConstraint columnNames="email" constraintName="users_email_key" tableName="users"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-21">
+        <createTable tableName="review_tags">
+            <column name="review_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="review_tags_pkey"/>
+            </column>
+            <column name="tag_id" type="SMALLINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="review_tags_pkey"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-22">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="companies" constraintName="companies_user_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-23">
+        <addForeignKeyConstraint baseColumnNames="company_id" baseTableName="company_documents" constraintName="company_documents_company_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="companies" validate="true"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-24">
+        <addForeignKeyConstraint baseColumnNames="category_id" baseTableName="feedback_tags" constraintName="feedback_tags_category_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="feedback_categories" validate="true"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-25">
+        <addForeignKeyConstraint baseColumnNames="review_id" baseTableName="review_photo" constraintName="review_photo_review_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="reviews" validate="true"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-26">
+        <addForeignKeyConstraint baseColumnNames="review_id" baseTableName="review_tags" constraintName="review_tags_review_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="reviews" validate="true"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-27">
+        <addForeignKeyConstraint baseColumnNames="tag_id" baseTableName="review_tags" constraintName="review_tags_tag_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="feedback_tags" validate="true"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-28">
+        <addForeignKeyConstraint baseColumnNames="owner_id" baseTableName="reviews" constraintName="reviews_owner_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="SET NULL" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-29">
+        <addForeignKeyConstraint baseColumnNames="route_id,vehicle_number" baseTableName="reviews" constraintName="reviews_route_id_vehicle_number_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="route_id,vehicle_number" referencedTableName="route_vehicles" validate="true"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-30">
+        <addForeignKeyConstraint baseColumnNames="route_id" baseTableName="route_vehicles" constraintName="route_vehicles_route_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="routes" validate="true"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-31">
+        <addForeignKeyConstraint baseColumnNames="city_id" baseTableName="routes" constraintName="routes_city_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="cities" validate="true"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-32">
+        <addForeignKeyConstraint baseColumnNames="company_id" baseTableName="routes" constraintName="routes_company_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="companies" validate="true"/>
+    </changeSet>
+    <changeSet author="kropinoff (generated)" id="1775290085186-33">
+        <addForeignKeyConstraint baseColumnNames="transport_mode_id" baseTableName="routes" constraintName="routes_transport_mode_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="transport_modes" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
