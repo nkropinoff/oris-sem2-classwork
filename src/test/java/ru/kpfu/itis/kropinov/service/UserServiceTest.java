@@ -55,7 +55,7 @@ public class UserServiceTest {
         List<UserResponseDto> result = userService.getAllUsers();
 
         assertEquals(1, result.size());
-        assertEquals(1L, result.get(0).id());
+        assertEquals(1L, result.getFirst().id());
         assertEquals("ivan@mail.com", result.get(0).name());
     }
 
@@ -63,9 +63,7 @@ public class UserServiceTest {
     void getAllUsers_emptyRepository_returnsEmptyList() {
         given(userRepository.findAll()).willReturn(List.of());
 
-        List<UserResponseDto> result = userService.getAllUsers();
-
-        assertTrue(result.isEmpty());
+        assertTrue(userService.getAllUsers().isEmpty());
     }
 
     @Test
@@ -173,6 +171,27 @@ public class UserServiceTest {
 
         assertThrows(RuntimeException.class,
                 () -> userService.register("a@b.com", "pass"));
+    }
+
+    @Test
+    void register_mailSendingFails_throwsRuntimeException() throws Exception {
+        Role role = new Role();
+        role.setName("ROLE_USER");
+        MimeMessage mimeMessage = new MimeMessage((jakarta.mail.Session) null);
+
+        given(userRepository.findByEmail("fail@mail.com")).willReturn(Optional.empty());
+        given(passwordEncoder.encode("pass")).willReturn("encoded");
+        given(roleRepository.findByName("ROLE_USER")).willReturn(Optional.of(role));
+        given(javaMailSender.createMimeMessage()).willReturn(mimeMessage);
+        given(mailProperties.getContent()).willReturn("Hello $name, click $url");
+        given(mailProperties.getFrom()).willReturn("noreply@app.com");
+        given(mailProperties.getSender()).willReturn("MyApp");
+        given(mailProperties.getSubject()).willReturn("Subject");
+        given(mailProperties.getBaseUrl()).willReturn("http://localhost");
+        doThrow(new RuntimeException("SMTP error")).when(javaMailSender).send(any(MimeMessage.class));
+
+        assertThrows(RuntimeException.class,
+                () -> userService.register("fail@mail.com", "pass"));
     }
 
     @Test
