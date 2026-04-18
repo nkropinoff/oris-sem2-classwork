@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.kpfu.itis.kropinov.aop.ExecutionSuccessMetrics;
+import ru.kpfu.itis.kropinov.aop.ExecutionTimeMetrics;
 import ru.kpfu.itis.kropinov.dto.NoteCreateDto;
 import ru.kpfu.itis.kropinov.dto.NoteEditDto;
 import ru.kpfu.itis.kropinov.model.Note;
@@ -33,6 +35,8 @@ public class NoteController {
     }
 
     @GetMapping("/public")
+    @ExecutionSuccessMetrics
+    @ExecutionTimeMetrics
     public String getPublicNotes(Model model) {
         List<Note> publicNotes = noteService.getPublicNotes();
         model.addAttribute("publicNotes", publicNotes);

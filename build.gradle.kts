@@ -36,6 +36,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.security:spring-security-taglibs:${springSecurityVersion}")
     implementation("org.postgresql:postgresql:$postgresVersion")
+    implementation("org.springframework.boot:spring-boot-starter-aop")
 
     implementation("org.liquibase:liquibase-core")
     liquibaseRuntime("org.liquibase:liquibase-core:4.33.0")
